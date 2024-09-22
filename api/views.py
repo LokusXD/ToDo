@@ -6,7 +6,6 @@ from .serializers import TaskSerializer
 from rest_framework import generics
 import heapq
 
-
 class TaskListCreate(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -91,3 +90,4 @@ class LongestIncreasingPath(APIView):
                 max_len = max(max_len, dfs(i, j))
 
         return Response({'result': max_len})
+
