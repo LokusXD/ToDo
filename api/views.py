@@ -28,7 +28,7 @@ class TaskDetail(APIView):
 class TaskUpdate(generics.UpdateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
-    lookup_field = 'pk'     
+    lookup_field = "pk"
                    
 class TaskDelete(APIView):
     def delete(self, request, pk):
@@ -41,7 +41,7 @@ class TaskDelete(APIView):
         
 class NearestTask(APIView):
     def get(self, request):
-        tasks = Task.objects.filter(due_date__isnull=False).order_by('due_date')
+        tasks = Task.objects.filter(due_date__isnull=False).order_by("due_date")
         if tasks.exists():
             serializer = TaskSerializer(tasks.first())
             return Response(serializer.data)
@@ -50,23 +50,23 @@ class NearestTask(APIView):
 
 class RotateArray(APIView):
     def post(self, request):
-        nums = request.data.get('nums')
-        k = request.data.get('k')
+        nums = request.data.get("nums")
+        k = request.data.get("k")
         k = k % len(nums)
         result = nums[-k:] + nums[:-k]
-        return Response({'result': result})
+        return Response({"result": result})
     
 class KthLargestElement(APIView):
     def post(self, request):
-        nums = request.data.get('nums')
-        k = request.data.get('k')
-        return Response({'result': heapq.nlargest(k, nums)[-1]})
+        nums = request.data.get("nums")
+        k = request.data.get("k")
+        return Response({"result": heapq.nlargest(k, nums)[-1]})
     
 class LongestIncreasingPath(APIView):
     def post(self, request):
-        matrix = request.data.get('matrix')
+        matrix = request.data.get("matrix")
         if not matrix:
-            return Response({'result': 0})
+            return Response({"result": 0})
 
         m, n = len(matrix), len(matrix[0])
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -89,5 +89,5 @@ class LongestIncreasingPath(APIView):
             for j in range(n):
                 max_len = max(max_len, dfs(i, j))
 
-        return Response({'result': max_len})
+        return Response({"result": max_len})
 
